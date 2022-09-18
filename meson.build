@@ -7,4 +7,4 @@ pkg = import('pkgconfig')
 cpp = meson.get_compiler('cpp')
 
 subdir('src/catch2')
-
+subdir('tests')

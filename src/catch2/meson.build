@@ -18,89 +18,6 @@ configure_file(input: 'catch_user_config.hpp.in',
                install_dir: get_option('includedir') / 'catch2',
                configuration: conf_data)
 
-sources = [
-  'catch_approx.cpp',
-  'internal/catch_assertion_handler.cpp',
-  'catch_assertion_result.cpp',
-  'internal/catch_clara.cpp',
-  'internal/catch_commandline.cpp',
-  'internal/catch_source_line_info.cpp',
-  'catch_config.cpp',
-  'internal/catch_case_insensitive_comparisons.cpp',
-  'internal/catch_console_colour.cpp',
-  'internal/catch_context.cpp',
-  'internal/catch_debug_console.cpp',
-  'internal/catch_debugger.cpp',
-  'internal/catch_enforce.cpp',
-  'internal/catch_enum_values_registry.cpp',
-  'internal/catch_exception_translator_registry.cpp',
-  'internal/catch_fatal_condition_handler.cpp',
-  'internal/catch_floating_point_helpers.cpp',
-  'internal/catch_istream.cpp',
-  'interfaces/catch_interfaces_generatortracker.cpp',
-  'interfaces/catch_interfaces_reporter.cpp',
-  'internal/catch_list.cpp',
-  'matchers/catch_matchers_floating_point.cpp',
-  'matchers/catch_matchers_quantifiers.cpp',
-  'matchers/catch_matchers_string.cpp',
-  'matchers/catch_matchers_templated.cpp',
-  'catch_message.cpp',
-  'internal/catch_output_redirect.cpp',
-  'catch_registry_hub.cpp',
-  'internal/catch_random_number_generator.cpp',
-  'internal/catch_random_seed_generation.cpp',
-  'internal/catch_reporter_registry.cpp',
-  'internal/catch_reporter_spec_parser.cpp',
-  'internal/catch_result_type.cpp',
-  'internal/catch_run_context.cpp',
-  'internal/catch_section.cpp',
-  'internal/catch_stdstreams.cpp',
-  'catch_session.cpp',
-  'internal/catch_singletons.cpp',
-  'internal/catch_reusable_string_stream.cpp',
-  'internal/catch_stringref.cpp',
-  'internal/catch_string_manip.cpp',
-  'internal/catch_tag_alias_registry.cpp',
-  'catch_test_case_info.cpp',
-  'internal/catch_test_case_registry_impl.cpp',
-  'internal/catch_test_case_tracker.cpp',
-  'internal/catch_test_registry.cpp',
-  'internal/catch_textflow.cpp',
-  'catch_test_spec.cpp',
-  'internal/catch_test_spec_parser.cpp',
-  'catch_timer.cpp',
-  'catch_tostring.cpp',
-  'catch_totals.cpp',
-  'catch_version.cpp',
-  'internal/catch_wildcard_pattern.cpp',
-  'internal/catch_xmlwriter.cpp',
-  'internal/catch_test_case_info_hasher.cpp',
-  'generators/catch_generators_random.cpp',
-  'generators/catch_generator_exception.cpp',
-  'generators/catch_generators.cpp',
-  'matchers/catch_matchers.cpp',
-  'matchers/catch_matchers_container_properties.cpp',
-  'matchers/catch_matchers_exception.cpp',
-  'matchers/catch_matchers_predicate.cpp',
-  'matchers/internal/catch_matchers_impl.cpp',
-  'catch_tag_alias_autoregistrar.cpp',
-  'internal/catch_decomposer.cpp',
-  'internal/catch_errno_guard.cpp',
-  'internal/catch_lazy_expr.cpp',
-  'internal/catch_leak_detector.cpp',
-  'internal/catch_message_info.cpp',
-  'internal/catch_polyfills.cpp',
-  'internal/catch_startup_exception_registry.cpp',
-  'internal/catch_uncaught_exceptions.cpp',
-  'interfaces/catch_interfaces_capture.cpp',
-  'interfaces/catch_interfaces_config.cpp',
-  'interfaces/catch_interfaces_exception.cpp',
-  'interfaces/catch_interfaces_registry_hub.cpp',
-  'interfaces/catch_interfaces_reporter_factory.cpp',
-  'interfaces/catch_interfaces_reporter_registry.cpp',
-  'interfaces/catch_interfaces_testcase.cpp'
-]
-
 benchmark_headers = [
   'benchmark/catch_benchmark.hpp',
   'benchmark/catch_benchmark_all.hpp',
@@ -122,6 +39,13 @@ benchmark_headers = [
   'benchmark/detail/catch_run_for_at_least.hpp',
   'benchmark/detail/catch_stats.hpp',
   'benchmark/detail/catch_timing.hpp'
+]
+
+benchmark_sources = [
+  'benchmark/catch_chronometer.cpp',
+  'benchmark/detail/catch_benchmark_function.cpp',
+  'benchmark/detail/catch_run_for_at_least.cpp',
+  'benchmark/detail/catch_stats.cpp',
 ]
 
 internal_headers = [
@@ -248,6 +172,89 @@ internal_headers = [
   'internal/catch_test_case_info_hasher.hpp'
 ]
 
+internal_sources = [
+  'catch_approx.cpp',
+  'internal/catch_assertion_handler.cpp',
+  'catch_assertion_result.cpp',
+  'internal/catch_clara.cpp',
+  'internal/catch_commandline.cpp',
+  'internal/catch_source_line_info.cpp',
+  'catch_config.cpp',
+  'internal/catch_case_insensitive_comparisons.cpp',
+  'internal/catch_console_colour.cpp',
+  'internal/catch_context.cpp',
+  'internal/catch_debug_console.cpp',
+  'internal/catch_debugger.cpp',
+  'internal/catch_enforce.cpp',
+  'internal/catch_enum_values_registry.cpp',
+  'internal/catch_exception_translator_registry.cpp',
+  'internal/catch_fatal_condition_handler.cpp',
+  'internal/catch_floating_point_helpers.cpp',
+  'internal/catch_istream.cpp',
+  'interfaces/catch_interfaces_generatortracker.cpp',
+  'interfaces/catch_interfaces_reporter.cpp',
+  'internal/catch_list.cpp',
+  'matchers/catch_matchers_floating_point.cpp',
+  'matchers/catch_matchers_quantifiers.cpp',
+  'matchers/catch_matchers_string.cpp',
+  'matchers/catch_matchers_templated.cpp',
+  'catch_message.cpp',
+  'internal/catch_output_redirect.cpp',
+  'catch_registry_hub.cpp',
+  'internal/catch_random_number_generator.cpp',
+  'internal/catch_random_seed_generation.cpp',
+  'internal/catch_reporter_registry.cpp',
+  'internal/catch_reporter_spec_parser.cpp',
+  'internal/catch_result_type.cpp',
+  'internal/catch_run_context.cpp',
+  'internal/catch_section.cpp',
+  'internal/catch_stdstreams.cpp',
+  'catch_session.cpp',
+  'internal/catch_singletons.cpp',
+  'internal/catch_reusable_string_stream.cpp',
+  'internal/catch_stringref.cpp',
+  'internal/catch_string_manip.cpp',
+  'internal/catch_tag_alias_registry.cpp',
+  'catch_test_case_info.cpp',
+  'internal/catch_test_case_registry_impl.cpp',
+  'internal/catch_test_case_tracker.cpp',
+  'internal/catch_test_registry.cpp',
+  'internal/catch_textflow.cpp',
+  'catch_test_spec.cpp',
+  'internal/catch_test_spec_parser.cpp',
+  'catch_timer.cpp',
+  'catch_tostring.cpp',
+  'catch_totals.cpp',
+  'catch_version.cpp',
+  'internal/catch_wildcard_pattern.cpp',
+  'internal/catch_xmlwriter.cpp',
+  'internal/catch_test_case_info_hasher.cpp',
+  'generators/catch_generators_random.cpp',
+  'generators/catch_generator_exception.cpp',
+  'generators/catch_generators.cpp',
+  'matchers/catch_matchers.cpp',
+  'matchers/catch_matchers_container_properties.cpp',
+  'matchers/catch_matchers_exception.cpp',
+  'matchers/catch_matchers_predicate.cpp',
+  'matchers/internal/catch_matchers_impl.cpp',
+  'catch_tag_alias_autoregistrar.cpp',
+  'internal/catch_decomposer.cpp',
+  'internal/catch_errno_guard.cpp',
+  'internal/catch_lazy_expr.cpp',
+  'internal/catch_leak_detector.cpp',
+  'internal/catch_message_info.cpp',
+  'internal/catch_polyfills.cpp',
+  'internal/catch_startup_exception_registry.cpp',
+  'internal/catch_uncaught_exceptions.cpp',
+  'interfaces/catch_interfaces_capture.cpp',
+  'interfaces/catch_interfaces_config.cpp',
+  'interfaces/catch_interfaces_exception.cpp',
+  'interfaces/catch_interfaces_registry_hub.cpp',
+  'interfaces/catch_interfaces_reporter_factory.cpp',
+  'interfaces/catch_interfaces_reporter_registry.cpp',
+  'interfaces/catch_interfaces_testcase.cpp',
+]
+
 reporter_headers = [
   'reporters/catch_reporters_all.hpp',
   'reporters/catch_reporter_automake.hpp',
@@ -267,7 +274,26 @@ reporter_headers = [
   'reporters/catch_reporter_xml.hpp'
 ]
 
+reporter_sources = [
+  'reporters/catch_reporter_automake.cpp',
+  'reporters/catch_reporter_common_base.cpp',
+  'reporters/catch_reporter_compact.cpp',
+  'reporters/catch_reporter_console.cpp',
+  'reporters/catch_reporter_cumulative_base.cpp',
+  'reporters/catch_reporter_event_listener.cpp',
+  'reporters/catch_reporter_helpers.cpp',
+  'reporters/catch_reporter_junit.cpp',
+  'reporters/catch_reporter_multi.cpp',
+  'reporters/catch_reporter_registrars.cpp',
+  'reporters/catch_reporter_sonarqube.cpp',
+  'reporters/catch_reporter_streaming_base.cpp',
+  'reporters/catch_reporter_tap.cpp',
+  'reporters/catch_reporter_teamcity.cpp',
+  'reporters/catch_reporter_xml.cpp',
+]
+
 headers = benchmark_headers + internal_headers + reporter_headers
+sources = benchmark_sources + internal_sources + reporter_sources
 
 # meson v0.63 supports `preserve_path` for `install_headers`, but we'd
 # like to be compatible with Debian 11 (current stable) which has
@@ -285,7 +311,6 @@ foreach file : headers
         endif
     endforeach
 
-    message(file + ' -> ' + join_paths(include_subdir, folder))
     install_headers(file, subdir: join_paths(include_subdir, folder))
 endforeach
 
@@ -320,6 +345,3 @@ pkg.generate(
   description : 'A modern, C++-native, test framework for C++14 and above (links in default main)',
   requires : 'catch2 = ' + meson.project_version()
 )
-
-
-
