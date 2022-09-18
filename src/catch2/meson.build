@@ -1,5 +1,10 @@
 # TODO:
 # - support choosing C++17 and turning on appropriate catch_user_config options
+# - headers aren't installed in the right directories:
+# https://github.com/mesonbuild/meson/commit/ad8f24f232290b778dad1152583820512ecf9f63
+# https://github.com/mesonbuild/meson/issues/14
+# https://github.com/mesonbuild/meson/issues/3371
+
 
 
 conf_data = configuration_data()
@@ -10,7 +15,7 @@ conf_data.set('miketest', 'wibble')
 configure_file(input: 'catch_user_config.hpp.in',
                output: 'catch_user_config.hpp',
                format: 'cmake@',
-#               install: true,
+               install_dir: get_option('includedir') / 'catch2',
                configuration: conf_data)
 
 sources = [
@@ -96,7 +101,193 @@ sources = [
   'interfaces/catch_interfaces_testcase.cpp'
 ]
 
-install_headers([])
+benchmark_headers = [
+  'benchmark/catch_benchmark.hpp',
+  'benchmark/catch_benchmark_all.hpp',
+  'benchmark/catch_chronometer.hpp',
+  'benchmark/catch_clock.hpp',
+  'benchmark/catch_constructor.hpp',
+  'benchmark/catch_environment.hpp',
+  'benchmark/catch_estimate.hpp',
+  'benchmark/catch_execution_plan.hpp',
+  'benchmark/catch_optimizer.hpp',
+  'benchmark/catch_outlier_classification.hpp',
+  'benchmark/catch_sample_analysis.hpp',
+  'benchmark/detail/catch_analyse.hpp',
+  'benchmark/detail/catch_benchmark_function.hpp',
+  'benchmark/detail/catch_complete_invoke.hpp',
+  'benchmark/detail/catch_estimate_clock.hpp',
+  'benchmark/detail/catch_measure.hpp',
+  'benchmark/detail/catch_repeat.hpp',
+  'benchmark/detail/catch_run_for_at_least.hpp',
+  'benchmark/detail/catch_stats.hpp',
+  'benchmark/detail/catch_timing.hpp'
+]
+
+internal_headers = [
+  'catch_all.hpp',
+  'matchers/catch_matchers_all.hpp',
+  'generators/catch_generators_all.hpp',
+  'interfaces/catch_interfaces_all.hpp',
+  'matchers/internal/catch_matchers_impl.hpp',
+  'internal/catch_case_insensitive_comparisons.hpp',
+  'internal/catch_console_width.hpp',
+  'internal/catch_container_nonmembers.hpp',
+  'internal/catch_noncopyable.hpp',
+  'catch_approx.hpp',
+  'internal/catch_assertion_handler.hpp',
+  'catch_assertion_info.hpp',
+  'catch_assertion_result.hpp',
+  'internal/catch_test_macro_impl.hpp',
+  'internal/catch_test_failure_exception.hpp',
+  'internal/catch_case_sensitive.hpp',
+  'internal/catch_clara.hpp',
+  'internal/catch_commandline.hpp',
+  'internal/catch_source_line_info.hpp',
+  'internal/catch_compiler_capabilities.hpp',
+  'catch_config.hpp',
+  'internal/catch_config_android_logwrite.hpp',
+  'internal/catch_config_counter.hpp',
+  'internal/catch_config_uncaught_exceptions.hpp',
+  'internal/catch_config_wchar.hpp',
+  'internal/catch_console_colour.hpp',
+  'internal/catch_context.hpp',
+  'internal/catch_debug_console.hpp',
+  'internal/catch_debugger.hpp',
+  'internal/catch_decomposer.hpp',
+  'internal/catch_enforce.hpp',
+  'internal/catch_enum_values_registry.hpp',
+  'internal/catch_errno_guard.hpp',
+  'internal/catch_exception_translator_registry.hpp',
+  'internal/catch_fatal_condition_handler.hpp',
+  'internal/catch_floating_point_helpers.hpp',
+  'internal/catch_istream.hpp',
+  'internal/catch_unique_name.hpp',
+  'internal/catch_sharding.hpp',
+  'generators/catch_generator_exception.hpp',
+  'generators/catch_generators.hpp',
+  'generators/catch_generators_adapters.hpp',
+  'generators/catch_generators_random.hpp',
+  'generators/catch_generators_range.hpp',
+  'interfaces/catch_interfaces_capture.hpp',
+  'interfaces/catch_interfaces_config.hpp',
+  'interfaces/catch_interfaces_enum_values_registry.hpp',
+  'interfaces/catch_interfaces_exception.hpp',
+  'interfaces/catch_interfaces_generatortracker.hpp',
+  'interfaces/catch_interfaces_registry_hub.hpp',
+  'interfaces/catch_interfaces_reporter.hpp',
+  'interfaces/catch_interfaces_reporter_factory.hpp',
+  'interfaces/catch_interfaces_reporter_registry.hpp',
+  'interfaces/catch_interfaces_tag_alias_registry.hpp',
+  'interfaces/catch_interfaces_testcase.hpp',
+  'internal/catch_lazy_expr.hpp',
+  'internal/catch_leak_detector.hpp',
+  'internal/catch_list.hpp',
+  'matchers/catch_matchers.hpp',
+  'matchers/catch_matchers_container_properties.hpp',
+  'matchers/catch_matchers_contains.hpp',
+  'matchers/catch_matchers_exception.hpp',
+  'matchers/catch_matchers_floating_point.hpp',
+  'matchers/catch_matchers_predicate.hpp',
+  'matchers/catch_matchers_quantifiers.hpp',
+  'matchers/catch_matchers_string.hpp',
+  'matchers/catch_matchers_templated.hpp',
+  'matchers/catch_matchers_vector.hpp',
+  'catch_message.hpp',
+  'internal/catch_message_info.hpp',
+  'internal/catch_meta.hpp',
+  'internal/catch_move_and_forward.hpp',
+  'internal/catch_optional.hpp',
+  'internal/catch_output_redirect.hpp',
+  'internal/catch_platform.hpp',
+  'internal/catch_polyfills.hpp',
+  'internal/catch_preprocessor.hpp',
+  'internal/catch_preprocessor_remove_parens.hpp',
+  'internal/catch_random_number_generator.hpp',
+  'internal/catch_random_seed_generation.hpp',
+  'internal/catch_reporter_registry.hpp',
+  'internal/catch_reporter_spec_parser.hpp',
+  'internal/catch_result_type.hpp',
+  'internal/catch_run_context.hpp',
+  'internal/catch_section.hpp',
+  'internal/catch_stdstreams.hpp',
+  'catch_section_info.hpp',
+  'catch_session.hpp',
+  'internal/catch_singletons.hpp',
+  'internal/catch_startup_exception_registry.hpp',
+  'internal/catch_reusable_string_stream.hpp',
+  'internal/catch_stream_end_stop.hpp',
+  'internal/catch_string_manip.hpp',
+  'internal/catch_stringref.hpp',
+  'catch_tag_alias.hpp',
+  'catch_tag_alias_autoregistrar.hpp',
+  'internal/catch_tag_alias_registry.hpp',
+  'catch_test_case_info.hpp',
+  'internal/catch_test_case_registry_impl.hpp',
+  'internal/catch_test_case_tracker.hpp',
+  'catch_template_test_macros.hpp',
+  'catch_test_macros.hpp',
+  'internal/catch_template_test_registry.hpp',
+  'internal/catch_test_registry.hpp',
+  'catch_test_spec.hpp',
+  'internal/catch_test_spec_parser.hpp',
+  'internal/catch_textflow.hpp',
+  'catch_timer.hpp',
+  'internal/catch_to_string.hpp',
+  'catch_tostring.hpp',
+  'catch_totals.hpp',
+  'catch_translate_exception.hpp',
+  'internal/catch_uncaught_exceptions.hpp',
+  'internal/catch_unique_ptr.hpp',
+  'internal/catch_void_type.hpp',
+  'catch_version.hpp',
+  'catch_version_macros.hpp',
+  'internal/catch_wildcard_pattern.hpp',
+  'internal/catch_windows_h_proxy.hpp',
+  'internal/catch_xmlwriter.hpp',
+  'internal/catch_test_case_info_hasher.hpp'
+]
+
+reporter_headers = [
+  'reporters/catch_reporters_all.hpp',
+  'reporters/catch_reporter_automake.hpp',
+  'reporters/catch_reporter_common_base.hpp',
+  'reporters/catch_reporter_compact.hpp',
+  'reporters/catch_reporter_console.hpp',
+  'reporters/catch_reporter_cumulative_base.hpp',
+  'reporters/catch_reporter_event_listener.hpp',
+  'reporters/catch_reporter_helpers.hpp',
+  'reporters/catch_reporter_junit.hpp',
+  'reporters/catch_reporter_multi.hpp',
+  'reporters/catch_reporter_registrars.hpp',
+  'reporters/catch_reporter_sonarqube.hpp',
+  'reporters/catch_reporter_streaming_base.hpp',
+  'reporters/catch_reporter_tap.hpp',
+  'reporters/catch_reporter_teamcity.hpp',
+  'reporters/catch_reporter_xml.hpp'
+]
+
+headers = benchmark_headers + internal_headers + reporter_headers
+
+# meson v0.63 supports `preserve_path` for `install_headers`, but we'd
+# like to be compatible with Debian 11 (current stable) which has
+# meson v0.56.2. Instead, let's use the technique from
+# https://github.com/mesonbuild/meson/issues/14 with some tweaks to
+# make it compatible with newer meson.
+include_subdir = 'catch2'
+foreach file : headers
+    file_path = file.split('/')
+
+    folder = ''
+    foreach path : file_path
+        if path != file_path[-1]
+            folder = folder / path
+        endif
+    endforeach
+
+    message(file + ' -> ' + join_paths(include_subdir, folder))
+    install_headers(file, subdir: join_paths(include_subdir, folder))
+endforeach
 
 catch2 = static_library(
   'Catch2',
@@ -104,14 +295,8 @@ catch2 = static_library(
   include_directories : '..',
   dependencies : [],
   install : true)
-catch2_with_main = static_library(
-  'Catch2Main',
-  [ 'internal/catch_main.cpp' ],
-  include_directories : '..',
-  dependencies : [],
-  install : true)
 
-catch2_pkg = pkg.generate(
+pkg.generate(
   filebase: 'catch2',
   name : 'Catch2',
   libraries : catch2,
@@ -120,13 +305,20 @@ catch2_pkg = pkg.generate(
   url: 'https://github.com/catchorg/Catch2',
 )
 
+catch2_with_main = static_library(
+  'Catch2Main',
+  [ 'internal/catch_main.cpp' ],
+  include_directories : '..',
+  dependencies : [],
+  install : true)
+
 pkg.generate(
   filebase : 'catch2-with-main',
   name : 'Catch2-With-Main',
   libraries : catch2_with_main,
   version : meson.project_version(),
   description : 'A modern, C++-native, test framework for C++14 and above (links in default main)',
-  requires : 'catch2'
+  requires : 'catch2 = ' + meson.project_version()
 )
 
 
